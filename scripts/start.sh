@@ -9,13 +9,11 @@ scripts/git.sh
 echo "[${BRANCH_NAME}] Building image: ${IMAGE_FULLNAME}"
 if [ "$BRANCH_NAME" = "master" ] || [ "$BRANCH_NAME" = "main" ]
 then
-    docker buildx build \
-        --platform linux/amd64,linux/arm64 \
+    docker build \
         -t ${IMAGE_FULLNAME}:latest \
         --push ./repo/
 else
-    docker buildx build \
-        --platform linux/amd64,linux/arm64 \
+    docker build \
         -t ${IMAGE_FULLNAME}-test:${BRANCH_NAME} \
         --push ./repo/
 fi
