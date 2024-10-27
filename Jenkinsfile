@@ -13,7 +13,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_FULLNAME = 'ruepp/daedalos',
+        IMAGE_FULLNAME = 'ruepp/daedalos'
         DOCKER_API_PASSWORD = credentials('DOCKER_API_PASSWORD')
     }
 
