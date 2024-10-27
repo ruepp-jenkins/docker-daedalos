@@ -3,7 +3,8 @@ properties(
         githubProjectProperty(
             displayName: 'docker-daedalos',
             projectUrlStr: 'https://github.com/ruepp-jenkins/docker-daedalos/'
-        )
+        ),
+        disableConcurrentBuilds()
     ]
 )
 
