@@ -1,2 +1,3 @@
 # docker-daedalos
-https://dustinbrett.com/
+
+Builds docker images on new commits for https://github.com/DustinBrett/daedalOS
