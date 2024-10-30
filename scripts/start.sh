@@ -4,7 +4,6 @@ echo "Starting build workflow"
 
 scripts/docker_initialize.sh
 scripts/git.sh
-scripts/daedalos.sh
 
 # run build
 echo "[${BRANCH_NAME}] Building image: ${IMAGE_FULLNAME}"
