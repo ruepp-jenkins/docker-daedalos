@@ -4,7 +4,7 @@ properties(
             displayName: 'docker-daedalos',
             projectUrlStr: 'https://github.com/ruepp-jenkins/docker-daedalos/'
         ),
-        disableConcurrentBuilds()
+        disableConcurrentBuilds(abortPrevious: true)
     ]
 )
 
@@ -23,7 +23,7 @@ pipeline {
             cronTabSpec: 'H/30 * * * *',
             entries: [
                 URLTriggerEntry(
-                    url: 'https://hub.docker.com/v2/namespaces/library/repositories/node/tags/21-alpine',
+                    url: 'https://hub.docker.com/v2/namespaces/library/repositories/node/tags/22-alpine',
                     contentTypes: [
                         JsonContent(
                             [
