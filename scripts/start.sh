@@ -3,7 +3,6 @@ set -e
 echo "Starting build workflow"
 
 scripts/docker_initialize.sh
-scripts/git.sh
 
 # run build
 echo "[${BRANCH_NAME}] Building image: ${IMAGE_FULLNAME}"

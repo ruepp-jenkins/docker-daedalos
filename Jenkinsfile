@@ -53,6 +53,9 @@ pipeline {
                 url: env.GIT_URL
             }
         }
+        stage('Clone remote repository') {
+            sh 'scripts/git.sh'
+        }
         stage('DependencyTracker') {
             steps {
                 sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace ubuntu ls -lah ${WORKSPACE}"
