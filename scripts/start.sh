@@ -19,6 +19,3 @@ else
         -t ${IMAGE_FULLNAME}-test:${BRANCH_NAME} \
         --push ./repo/
 fi
-
-# cleanup
-scripts/docker_cleanup.sh

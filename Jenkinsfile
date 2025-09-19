@@ -53,6 +53,12 @@ pipeline {
                 url: env.GIT_URL
             }
         }
+        stage('DependencyTracker') {
+            steps {
+                sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace cyclonedx/cyclonedx-node -o ${WORKSPACE} ${WORKSPACE}/repo"
+                dependencyTrackPublisher artifact: 'bom.xml', projectName: env.JOB_NAME, projectVersion: env.BUILD_NUMBER, synchronous: true
+            }
+        }
         stage('Build') {
             steps {
                 sh 'chmod +x scripts/*.sh'
