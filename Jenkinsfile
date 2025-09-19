@@ -55,6 +55,7 @@ pipeline {
         }
         stage('Clone remote repository') {
             steps {
+                sh 'chmod u+x scripts/git.sh'
                 sh 'scripts/git.sh'
             }
         }
