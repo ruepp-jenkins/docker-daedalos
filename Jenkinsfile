@@ -54,7 +54,9 @@ pipeline {
             }
         }
         stage('Clone remote repository') {
-            sh 'scripts/git.sh'
+            steps {
+                sh 'scripts/git.sh'
+            }
         }
         stage('DependencyTracker') {
             steps {
