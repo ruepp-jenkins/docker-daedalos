@@ -47,11 +47,6 @@ pipeline {
     }
 
     stages {
-        stage('CleanWS') {
-            steps {
-                cleanWs()
-            }
-        }
         stage('Checkout') {
             steps {
                 git branch: env.BRANCH_NAME,
@@ -67,8 +62,6 @@ pipeline {
         }
         stage('DependencyTracker') {
             steps {
-                sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace ubuntu ls -lah ${WORKSPACE}"
-                sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace ubuntu ls -lah ${WORKSPACE}/repo"
                 sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace cyclonedx/cyclonedx-node -o ${WORKSPACE}/bom.xml ${WORKSPACE}/repo"
                 dependencyTrackPublisher artifact: 'bom.xml', projectName: env.JOB_NAME, projectVersion: env.BUILD_NUMBER, synchronous: true
             }
