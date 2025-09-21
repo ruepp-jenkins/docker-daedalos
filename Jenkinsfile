@@ -47,8 +47,12 @@ pipeline {
     }
 
     stages {
+        stage('CleanWS') 
+            steps {
+                cleanWs()
+            }
+        }
         stage('Checkout') {
-            cleanWs()
             steps {
                 git branch: env.BRANCH_NAME,
                 url: env.GIT_URL
