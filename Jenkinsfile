@@ -53,10 +53,11 @@ pipeline {
                 url: env.GIT_URL
             }
         }
-        stage('Clone remote repository') {
+        stage('Clone and YARN') {
             steps {
                 sh 'chmod u+x scripts/git.sh'
                 sh 'scripts/git.sh'
+                sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace -w ${WORKSPACE} node:lts cd ${WORKSPACE}/dependency_check.sh"
             }
         }
         stage('DependencyTracker') {
