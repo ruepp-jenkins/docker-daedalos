@@ -3,7 +3,6 @@ set -e
 echo "Starting build workflow"
 
 scripts/docker_initialize.sh
-scripts/git.sh
 
 # run build
 echo "[${BRANCH_NAME}] Building image: ${IMAGE_FULLNAME}"
@@ -19,6 +18,3 @@ else
         -t ${IMAGE_FULLNAME}-test:${BRANCH_NAME} \
         --push ./repo/
 fi
-
-# cleanup
-scripts/docker_cleanup.sh

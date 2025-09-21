@@ -53,6 +53,19 @@ pipeline {
                 url: env.GIT_URL
             }
         }
+        stage('Clone and YARN') {
+            steps {
+                sh 'chmod u+x scripts/git.sh'
+                sh 'scripts/git.sh'
+                sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace -w ${WORKSPACE}/repo/ node:lts sh ${WORKSPACE}/dependency_check.sh"
+            }
+        }
+        stage('DependencyTracker') {
+            steps {
+                sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace cyclonedx/cyclonedx-node -o ${WORKSPACE}/bom.xml ${WORKSPACE}/repo"
+                dependencyTrackPublisher artifact: 'bom.xml', projectName: env.JOB_NAME, projectVersion: env.BUILD_NUMBER, synchronous: true
+            }
+        }
         stage('Build') {
             steps {
                 sh 'chmod +x scripts/*.sh'

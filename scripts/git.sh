@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
-echo "Initialize docker"
+echo "Fetch remote repository"
 
 git clone https://github.com/DustinBrett/daedalOS.git repo
