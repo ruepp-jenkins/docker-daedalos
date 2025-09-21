@@ -47,7 +47,7 @@ pipeline {
     }
 
     stages {
-        stage('CleanWS') 
+        stage('CleanWS') {
             steps {
                 cleanWs()
             }
