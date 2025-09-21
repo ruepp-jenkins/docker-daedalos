@@ -62,7 +62,7 @@ pipeline {
             steps {
                 sh 'chmod u+x scripts/git.sh'
                 sh 'scripts/git.sh'
-                sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace -w ${WORKSPACE} node:lts cd ${WORKSPACE}/dependency_check.sh"
+                sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace -w ${WORKSPACE} node:lts sh ${WORKSPACE}/dependency_check.sh"
             }
         }
         stage('DependencyTracker') {
