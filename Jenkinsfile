@@ -16,6 +16,8 @@ pipeline {
     environment {
         IMAGE_FULLNAME = 'ruepp/daedalos'
         DOCKER_API_PASSWORD = credentials('DOCKER_API_PASSWORD')
+        DEPENDENCYTRACK_HOST = 'http://172.20.89.2:8080'
+        DEPENDENCYTRACK_API_TOKEN = credentials('dependencychecker')
     }
 
     triggers {
@@ -62,8 +64,37 @@ pipeline {
         }
         stage('DependencyTracker') {
             steps {
+                script {
+                    // root project body
+                    def body = groovy.json.JsonOutput.toJson([
+                        name: "${env.JOB_NAME}",
+                        classifier: "CONTAINER"
+                    ])
+
+                    // create root project
+                    httpRequest contentType: 'APPLICATION_JSON',
+                                httpMode: 'PUT',
+                                customHeaders: [
+                                    [name: 'X-Api-Key', value: env.DEPENDENCYTRACK_API_TOKEN, maskValue: true]
+                                ],
+                                requestBody: body,
+                                url: "${DEPENDENCYTRACK_HOST}/api/v1/project",
+                                validResponseCodes: '200:299,409' // 409: project already exist
+                }
+
                 sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace cyclonedx/cyclonedx-node -o ${WORKSPACE}/bom.xml ${WORKSPACE}/repo"
-                dependencyTrackPublisher artifact: 'bom.xml', projectName: env.JOB_NAME, projectVersion: env.BUILD_NUMBER, synchronous: true, projectProperties: [isLatest: true, tags: ['node']]
+
+                dependencyTrackPublisher(
+                    artifact: 'bom.xml',
+                    projectName: env.JOB_NAME,
+                    projectVersion: env.BUILD_NUMBER,
+                    synchronous: false,
+                    projectProperties: [
+                        isLatest: true,
+                        parentName: env.JOB_NAME,
+                        tags: ['dotnet']
+                    ]
+                )
             }
         }
         stage('Build') {
