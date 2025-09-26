@@ -68,7 +68,7 @@ pipeline {
                     // root project body
                     def body = groovy.json.JsonOutput.toJson([
                         name: "${env.JOB_NAME}",
-                        classifier: "APPLICATION"
+                        classifier: "NONE"
                     ])
 
                     // create root project
