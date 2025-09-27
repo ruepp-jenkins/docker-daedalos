@@ -93,7 +93,7 @@ pipeline {
                     projectProperties: [
                         isLatest: true,
                         parentName: env.JOB_NAME,
-                        tags: ['yarn']
+                        tags: ['image', 'yarn']
                     ]
                 )
             }
