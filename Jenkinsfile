@@ -50,7 +50,9 @@ pipeline {
 
     stages {
         stage('Pre Cleanup') {
-            cleanWs()
+            steps {
+                cleanWs()
+            }
         }
         stage('Checkout') {
             steps {
