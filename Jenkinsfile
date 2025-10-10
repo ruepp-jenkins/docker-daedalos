@@ -88,7 +88,7 @@ pipeline {
                         validResponseCodes: '200:299,409' // 409: project already exist
                 }
 
-                sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace cyclonedx/cyclonedx-node -o ${WORKSPACE}/bom.xml ${WORKSPACE}/repo"
+                sh "docker run --rm --platform=linux/amd64 -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace cyclonedx/cyclonedx-node -o ${WORKSPACE}/bom.xml ${WORKSPACE}/repo"
 
                 dependencyTrackPublisher(
                     artifact: 'bom.xml',
