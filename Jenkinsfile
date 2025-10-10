@@ -49,15 +49,15 @@ pipeline {
     }
 
     stages {
-        stage('Pre Cleanup') {
-            steps {
-                cleanWs()
-            }
-        }
         stage('Checkout') {
             steps {
                 git branch: env.BRANCH_NAME,
                 url: env.GIT_URL
+            }
+        }
+        stage('Binfmt registration') {
+            steps {
+                sh 'docker run --privileged --rm tonistiigi/binfmt --install all'
             }
         }
         stage('Clone and YARN') {
@@ -118,7 +118,7 @@ pipeline {
                 link: env.BUILD_URL,
                 title: JOB_NAME,
                 webhookURL: DISCORD_WEBHOOK
-            // cleanWs()
+            cleanWs()
         }
     }
 }
