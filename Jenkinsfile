@@ -49,6 +49,9 @@ pipeline {
     }
 
     stages {
+        stage('Pre Cleanup') {
+            cleanWs()
+        }
         stage('Checkout') {
             steps {
                 git branch: env.BRANCH_NAME,
@@ -113,7 +116,7 @@ pipeline {
                 link: env.BUILD_URL,
                 title: JOB_NAME,
                 webhookURL: DISCORD_WEBHOOK
-            cleanWs()
+            // cleanWs()
         }
     }
 }
