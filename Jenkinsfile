@@ -22,7 +22,7 @@ pipeline {
 
     triggers {
         URLTrigger(
-            cronTabSpec: 'H/30 * * * *',
+            cronTabSpec: 'H H/4 * * *',
             entries: [
                 URLTriggerEntry(
                     url: 'https://hub.docker.com/v2/namespaces/library/repositories/node/tags/22-alpine',
@@ -123,7 +123,6 @@ pipeline {
                 link: env.BUILD_URL,
                 title: JOB_NAME,
                 webhookURL: DISCORD_WEBHOOK
-            cleanWs()
         }
     }
 }
