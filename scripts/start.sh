@@ -11,13 +11,13 @@ echo "[${BRANCH_NAME}] Building image: ${IMAGE_FULLNAME}"
 if [ "$BRANCH_NAME" = "master" ] || [ "$BRANCH_NAME" = "main" ]
 then
     docker buildx build \
-        --platform linux/amd64,linux/ppc64le,linux/arm/v7,linux/arm64/v8 \
+        --platform linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8 \
         -t ${IMAGE_FULLNAME}:latest \
         -t ${IMAGE_FULLNAME}:${DATESTAMP} \
         --push ./repo/
 else
     docker buildx build \
-        --platform linux/amd64,linux/ppc64le,linux/arm/v7,linux/arm64/v8 \
+        --platform linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8 \
         -t ${IMAGE_FULLNAME}-test:${BRANCH_NAME} \
         --push ./repo/
 fi
