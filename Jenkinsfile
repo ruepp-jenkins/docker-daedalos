@@ -49,6 +49,11 @@ pipeline {
     }
 
     stages {
+        stage('Pre Cleanup') {
+            steps {
+                cleanWs()
+            }
+        }
         stage('Checkout') {
             steps {
                 git branch: env.BRANCH_NAME,
