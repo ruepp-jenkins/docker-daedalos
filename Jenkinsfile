@@ -60,11 +60,6 @@ pipeline {
                 url: env.GIT_URL
             }
         }
-        stage('Binfmt registration') {
-            steps {
-                sh 'docker run --privileged --rm tonistiigi/binfmt --install all'
-            }
-        }
         stage('Clone and YARN') {
             steps {
                 sh 'chmod u+x scripts/git.sh'
