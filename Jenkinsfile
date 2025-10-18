@@ -22,7 +22,7 @@ pipeline {
 
     triggers {
         URLTrigger(
-            cronTabSpec: 'H H/4 * * *',
+            cronTabSpec: '0 H/4 * * *',
             entries: [
                 URLTriggerEntry(
                     url: 'https://hub.docker.com/v2/namespaces/library/repositories/node/tags/22-alpine',
